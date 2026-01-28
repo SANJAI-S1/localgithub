@@ -1,24 +1,34 @@
 name: Biuld WF
 on: 
-  push:
+#  push:
+#   branches:
+#      - main
+
+   pull_request:
     branches:
-      - main
+      - main   
 
 jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
       - name: Code checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Maven Build
         run: mvn install
+
+
   Testing:
     runs-on: ubuntu-latest
     needs: Build
     steps:
       - name: Code checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Run test on main branch
         run: mvn test

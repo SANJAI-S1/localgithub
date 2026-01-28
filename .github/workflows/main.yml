@@ -1,5 +1,5 @@
-name: Build Workflow
-on:
+name: Biuld WF
+on: 
   push:
     branches:
       - main
@@ -8,26 +8,20 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-      - name: code checkout
+      - name: Code checkout
         uses: actions/checkout@v4
 
-        
-      - name: maven install
-        uses: mvn install 
-
-
-
+      - name: Maven Build
+        run: mvn install
   Testing:
     runs-on: ubuntu-latest
     needs: Build
     steps:
-      - name: code checkout
+      - name: Code checkout
         uses: actions/checkout@v4
 
+      - name: Run test on main branch
+        run: mvn test
 
-      - name: run test on main branch 
-        uses: mvn test
-
-
-      - name: checkstyle
-        run: mvn checkstyle:checkstyle  
+      - name: Checkstyle
+        run: mvn checkstyle:checkstyle
